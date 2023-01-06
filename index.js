@@ -25,12 +25,17 @@ app.get('/mensagens', (req, res) => {
 
 //[GET] /mensagens/{id} - Retorna apenas uma unica mensagem por ID
 app.get('/mensagens/:id', (req, res) => {
-  const id = req.params.id
-  const mensagem = mensagens[id]
+  const id = +req.params.id
+
+  //console.log(typeof id, typeof mensagens[0].id)
+
+  const mensagem = mensagens.find((msg) => msg.id === id)
+
   if (!mensagem) {
     res.send('Mensagem não encontrada!')
     return
   }
+
   res.send(mensagem)
 })
 
@@ -52,9 +57,9 @@ app.post('/mensagens', (req, res) => {
 
 //[PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
 app.put('/mensagens/:id', (req, res) => {
-  const id = req.params.id
+  const id = +req.params.id
 
-  const mensagem = mensagens[id]
+  const mensagem = mensagens.find((msg) => msg.id === id)
 
   const novoTexto = req.body.texto
 
@@ -70,9 +75,13 @@ app.put('/mensagens/:id', (req, res) => {
 
 //[DELETE] / mensagens/{id} - Remover uma mensadem pelo ID
 app.delete('/mensagens/:id', (req, res) => {
-  const id = req.params.id
+  const id = +req.params.id
 
-  delete mensagens[id]
+  const mensagem = mensagens.filter(Boolean).find((msg) => msg.id === id)
+
+  const index = mensagens.indexOf(mensagem)
+
+  delete mensagens[index]
 
   res.send('Mensagem removida com sucesso')
 })
