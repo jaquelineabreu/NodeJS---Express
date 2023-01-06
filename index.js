@@ -7,7 +7,16 @@ const port = 3000
 
 app.use(bodyParser.json())
 
-const mensagens = ['Essa é a primeira mensagem', 'Essa é a segunda mensagem']
+const mensagens = [
+  {
+    id: 1,
+    texto: 'Essa é a primeira mensagem',
+  },
+  {
+    id: 2,
+    texto: 'Essa é a segunda mensagem',
+  },
+]
 
 //[GET] /mensagens - Retorna a lista de mensagens
 app.get('/mensagens', (req, res) => {
@@ -18,26 +27,45 @@ app.get('/mensagens', (req, res) => {
 app.get('/mensagens/:id', (req, res) => {
   const id = req.params.id
   const mensagem = mensagens[id]
+  if (!mensagem) {
+    res.send('Mensagem não encontrada!')
+    return
+  }
   res.send(mensagem)
 })
 
 //[POST] /mensagens - Cria uma nova mensagem
 app.post('/mensagens', (req, res) => {
-  const mensagem = req.body.mensagem
-  //  console.log(mensagem)
+  const mensagem = req.body
+
+  if (!mensagem || !mensagem.texto) {
+    res.send('Mensagem invalida')
+    return
+  }
+
+  mensagem.id = mensagens.length + 1
+
   mensagens.push(mensagem)
-  res.send(`Mensagem criada com sucesso: '${mensagem}'.`)
+
+  res.send(mensagem)
 })
 
 //[PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
 app.put('/mensagens/:id', (req, res) => {
   const id = req.params.id
 
-  const mensagem = req.body.mensagem
+  const mensagem = mensagens[id]
 
-  mensagens[id] = mensagem
+  const novoTexto = req.body.texto
 
-  res.send(`Mensagem atualizada com sucesso: '${mensagem}'.`)
+  if (!novoTexto) {
+    res.send('Mensagem invalida')
+    return
+  }
+
+  mensagem.texto = novoTexto
+
+  res.send(mensagem)
 })
 
 //[DELETE] / mensagens/{id} - Remover uma mensadem pelo ID
