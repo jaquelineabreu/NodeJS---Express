@@ -1,7 +1,11 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+
 const app = express()
 
 const port = 3000
+
+app.use(bodyParser.json())
 
 const mensagens = ['Essa é a primeira mensagem', 'Essa é a segunda mensagem']
 
@@ -19,9 +23,10 @@ app.get('/mensagens/:id', (req, res) => {
 
 //[POST] /mensagens - Cria uma nova mensagem
 app.post('/mensagens', (req, res) => {
-  const mensagem = req.body
-  console.log(mensagens)
-  res.send('Criar uma nova mensagem.')
+  const mensagem = req.body.mensagem
+  //  console.log(mensagem)
+  mensagens.push(mensagem)
+  res.send(`Mensagem criada com sucesso: '${mensagem}'.`)
 })
 
 app.listen(port, () => {
