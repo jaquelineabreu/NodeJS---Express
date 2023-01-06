@@ -3,8 +3,10 @@ const app = express()
 
 const port = 3000
 
-app.get('/msg', (req, res) => {
-  res.send('Hello World')
+const mensagens = ['Essa é a primeira mensagem', 'Essa é a segunda mensagem']
+
+app.get('/mensagens', (req, res) => {
+  res.send(mensagens)
 })
 
 app.listen(port, () => {
