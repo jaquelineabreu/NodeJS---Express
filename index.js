@@ -17,6 +17,13 @@ app.get('/mensagens/:id', (req, res) => {
   res.send(mensagem)
 })
 
+//[POST] /mensagens - Cria uma nova mensagem
+app.post('/mensagens', (req, res) => {
+  const mensagem = req.body
+  console.log(mensagens)
+  res.send('Criar uma nova mensagem.')
+})
+
 app.listen(port, () => {
   console.info(`App rodando em http://localhost:${port}`)
 })
