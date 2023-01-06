@@ -1,6 +1,6 @@
 # Estudo de API Backend NodeJS + Express
 
-Lista de Endpoints da aplicação
+Lista de Endpoints da aplicação CRUD de mensagens
 
 - [GET] / mensagens - Retorna a lista de mensagens
 - [GET] / mensagens/{id} - Retorna apenas uma unica mensagem por ID
