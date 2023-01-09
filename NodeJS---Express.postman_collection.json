@@ -24,15 +24,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/mensagens/",
-					"protocol": "http",
+					"raw": "{{API_URL}}/mensagens/1",
 					"host": [
-						"localhost"
+						"{{API_URL}}"
 					],
-					"port": "3000",
 					"path": [
 						"mensagens",
-						""
+						"1"
 					]
 				}
 			},
@@ -44,15 +42,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/mensagens/1",
-					"protocol": "http",
+					"raw": "{{API_URL}}/mensagens/",
 					"host": [
-						"localhost"
+						"{{API_URL}}"
 					],
-					"port": "3000",
 					"path": [
 						"mensagens",
-						"1"
+						""
 					]
 				}
 			},
@@ -64,12 +60,10 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/mensagens/0",
-					"protocol": "http",
+					"raw": "{{API_URL}}/mensagens/0",
 					"host": [
-						"localhost"
+						"{{API_URL}}"
 					],
-					"port": "3000",
 					"path": [
 						"mensagens",
 						"0"
@@ -84,11 +78,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/mensagens/",
+					"raw": "{{API_URL}}/mensagens/",
 					"host": [
-						"localhost"
+						"{{API_URL}}"
 					],
-					"port": "3000",
 					"path": [
 						"mensagens",
 						""
@@ -103,12 +96,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/mensagens/1",
-					"protocol": "http",
+					"raw": "{{API_URL}}/mensagens/1",
 					"host": [
-						"localhost"
+						"{{API_URL}}"
 					],
-					"port": "3000",
 					"path": [
 						"mensagens",
 						"1"
