@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "0d4b58bf-0a1c-468b-a9ae-16742a0932ae",
+		"name": "NodeJS---Express",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14846261"
+	},
+	"item": [
+		{
+			"name": "Ler mensagens por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensagem\":\"mensagem atualizada\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/mensagens/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mensagens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ler todas as mensagens",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/mensagens/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mensagens",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar mensagem por id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/mensagens/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mensagens",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar mensagem ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/mensagens/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mensagens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remover mensagem por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/mensagens/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"mensagens",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
