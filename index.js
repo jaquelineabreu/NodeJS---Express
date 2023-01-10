@@ -1,5 +1,21 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongodb = require('mongodb')
+
+const connectionString = 'mongodb://localhost:27017/API_nodejs_mensagens'
+
+console.info('...Conectando ao banco de dados MongoDB...')
+
+const options = {
+  useUnifiedTopology: true,
+}
+
+// (async () => {
+//   await precisoEsperar();
+// })();
+
+//usar await
+const client = mongodb.MongoClient.connect(connectionString, options)
 
 const app = express()
 
