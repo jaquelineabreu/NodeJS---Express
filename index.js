@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const mongodb = require('mongodb')(async () => {
+const mongodb = require('mongodb');
+(async () => {
   const connectionString = 'mongodb://localhost:27017/API_nodejs_mensagens'
 
   console.info('...Conectando ao banco de dados MongoDB...')
@@ -10,7 +11,7 @@ const mongodb = require('mongodb')(async () => {
   }
 
   //usar await
-  const client = mongodb.MongoClient.connect(connectionString, options)
+  const client = await mongodb.MongoClient.connect(connectionString, options)
 
   const app = express()
 
