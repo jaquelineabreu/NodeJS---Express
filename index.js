@@ -1,117 +1,113 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const mongodb = require('mongodb')
+const mongodb = require('mongodb')(async () => {
+  const connectionString = 'mongodb://localhost:27017/API_nodejs_mensagens'
 
-const connectionString = 'mongodb://localhost:27017/API_nodejs_mensagens'
+  console.info('...Conectando ao banco de dados MongoDB...')
 
-console.info('...Conectando ao banco de dados MongoDB...')
-
-const options = {
-  useUnifiedTopology: true,
-}
-
-// (async () => {
-//   await precisoEsperar();
-// })();
-
-//usar await
-const client = mongodb.MongoClient.connect(connectionString, options)
-
-const app = express()
-
-const port = 3000
-
-app.use(bodyParser.json())
-
-const mensagens = [
-  {
-    id: 1,
-    texto: 'Essa é a primeira mensagem',
-  },
-  {
-    id: 2,
-    texto: 'Essa é a segunda mensagem',
-  },
-]
-
-//[GET] /mensagens - Retorna a lista de mensagens
-app.get('/mensagens', (req, res) => {
-  res.send(getMensagensValidas())
-})
-
-//[GET] /mensagens/{id} - Retorna apenas uma unica mensagem por ID
-app.get('/mensagens/:id', (req, res) => {
-  const id = +req.params.id
-
-  //console.log(typeof id, typeof mensagens[0].id)
-
-  const mensagem = getMensagemById(id)
-
-  if (!mensagem) {
-    res.send('Mensagem não encontrada!')
-    return
+  const options = {
+    useUnifiedTopology: true,
   }
 
-  res.send(mensagem)
-})
+  //usar await
+  const client = mongodb.MongoClient.connect(connectionString, options)
 
-//[POST] /mensagens - Cria uma nova mensagem
-app.post('/mensagens', (req, res) => {
-  const mensagem = req.body
+  const app = express()
 
-  if (!mensagem || !mensagem.texto) {
-    res.send('Mensagem invalida')
-    return
-  }
+  const port = 3000
 
-  mensagem.id = mensagens.length + 1
+  app.use(bodyParser.json())
 
-  mensagens.push(mensagem)
+  const mensagens = [
+    {
+      id: 1,
+      texto: 'Essa é a primeira mensagem',
+    },
+    {
+      id: 2,
+      texto: 'Essa é a segunda mensagem',
+    },
+  ]
 
-  res.send(mensagem)
-})
+  //[GET] /mensagens - Retorna a lista de mensagens
+  app.get('/mensagens', (req, res) => {
+    res.send(getMensagensValidas())
+  })
 
-//[PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
-app.put('/mensagens/:id', (req, res) => {
-  const id = +req.params.id
+  //[GET] /mensagens/{id} - Retorna apenas uma unica mensagem por ID
+  app.get('/mensagens/:id', (req, res) => {
+    const id = +req.params.id
 
-  const mensagem = getMensagemById(id)
+    //console.log(typeof id, typeof mensagens[0].id)
 
-  const novoTexto = req.body.texto
+    const mensagem = getMensagemById(id)
 
-  if (!novoTexto) {
-    res.send('Mensagem invalida')
-    return
-  }
+    if (!mensagem) {
+      res.send('Mensagem não encontrada!')
+      return
+    }
 
-  mensagem.texto = novoTexto
+    res.send(mensagem)
+  })
 
-  res.send(mensagem)
-})
+  //[POST] /mensagens - Cria uma nova mensagem
+  app.post('/mensagens', (req, res) => {
+    const mensagem = req.body
 
-//[DELETE] / mensagens/{id} - Remover uma mensadem pelo ID
-app.delete('/mensagens/:id', (req, res) => {
-  const id = +req.params.id
+    if (!mensagem || !mensagem.texto) {
+      res.send('Mensagem invalida')
+      return
+    }
 
-  const mensagem = getMensagemById(id)
+    mensagem.id = mensagens.length + 1
 
-  if (!mensagem) {
-    res.send('Mensagem não encontrada.')
-    return
-  }
+    mensagens.push(mensagem)
 
-  const index = mensagens.indexOf(mensagem)
+    res.send(mensagem)
+  })
 
-  delete mensagens[index]
+  //[PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
+  app.put('/mensagens/:id', (req, res) => {
+    const id = +req.params.id
 
-  res.send('Mensagem removida com sucesso')
-})
+    const mensagem = getMensagemById(id)
 
-const getMensagensValidas = () => mensagens.filter(Boolean)
+    const novoTexto = req.body.texto
 
-const getMensagemById = (id) =>
-  getMensagensValidas().find((msg) => msg.id === id)
+    if (!novoTexto) {
+      res.send('Mensagem invalida')
+      return
+    }
 
-app.listen(port, () => {
-  console.info(`App rodando em http://localhost:${port}`)
-})
+    mensagem.texto = novoTexto
+
+    res.send(mensagem)
+  })
+
+  //[DELETE] / mensagens/{id} - Remover uma mensadem pelo ID
+  app.delete('/mensagens/:id', (req, res) => {
+    const id = +req.params.id
+
+    const mensagem = getMensagemById(id)
+
+    if (!mensagem) {
+      res.send('Mensagem não encontrada.')
+      return
+    }
+
+    const index = mensagens.indexOf(mensagem)
+
+    delete mensagens[index]
+
+    res.send('Mensagem removida com sucesso')
+  })
+
+  const getMensagensValidas = () => mensagens.filter(Boolean)
+
+  const getMensagemById = (id) =>
+    getMensagensValidas().find((msg) => msg.id === id)
+
+  app.listen(port, () => {
+    console.info(`App rodando em http://localhost:${port}`)
+  })
+})()
